@@ -135,6 +135,10 @@ typedef void(^WXLogBolock)(NSString *log);
 
 
 
+#pragma mark - WXMediaMessage
+@class WXMediaMessage;
+
+
 #pragma mark - SendAuthReq
 /*! @brief 第三方程序向微信终端请求认证的消息结构
  *
@@ -613,7 +617,6 @@ typedef void(^WXLogBolock)(NSString *log);
 @property (nonatomic, copy) NSString *wxOrderId;
 
 @end
-
 
 #pragma mark - WXMediaMessage
 
