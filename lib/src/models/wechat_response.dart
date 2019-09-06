@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-//enum WeChatResponseType { SHARE, AUTH, PAYMENT }
+//enum WeChatResponseType { SHARE, AUTH }
 
 /// response data from WeChat.
 //class WeChatResponse {
@@ -93,27 +93,6 @@ class WeChatLaunchMiniProgramResponse {
         iOSDescription = map["description"],
         androidTransaction = map["transaction"],
         extMsg = map["extMsg"];
-}
-
-class WeChatPaymentResponse {
-  final String errStr;
-  final int type;
-  final int errCode;
-  final String androidOpenId;
-  final String iOSDescription;
-  final String androidPrepayId;
-  final String extData;
-  final String androidTransaction;
-
-  WeChatPaymentResponse.fromMap(Map map)
-      : errStr = map["errStr"],
-        type = map["type"],
-        errCode = map["errCode"],
-        androidOpenId = map["openId"],
-        iOSDescription = map["description"],
-        androidPrepayId = map["prepayId"],
-        extData = map["extData"],
-        androidTransaction = map["transaction"];
 }
 
 class WeChatSubscribeMsgResp {
