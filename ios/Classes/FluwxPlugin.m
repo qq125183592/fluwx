@@ -3,7 +3,6 @@
 
 #import "FluwxAuthHandler.h"
 
-#import "FluwxPaymentHandler.h"
 #import "FluwxMethods.h"
 #import "FluwxKeys.h"
 #import "FluwxWXApiHandler.h"
@@ -21,7 +20,6 @@ FluwxShareHandler *_fluwxShareHandler;
 
 FluwxAuthHandler *_fluwxAuthHandler;
 FluwxWXApiHandler *_fluwxWXApiHandler;
-FluwxPaymentHandler *_fluwxPaymentHandler;
 FluwxLaunchMiniProgramHandler *_fluwxLaunchMiniProgramHandler;
 FluwxSubscribeMsgHandler *_fluwxSubscribeMsgHandler;
 FluwxAutoDeductHandler *_fluwxAutoDeductHandler;
@@ -52,7 +50,6 @@ FluwxAutoDeductHandler *_fluwxAutoDeductHandler;
         _fluwxShareHandler = [[FluwxShareHandler alloc] initWithRegistrar:registrar];
         _fluwxAuthHandler = [[FluwxAuthHandler alloc] initWithRegistrar:registrar methodChannel:flutterMethodChannel];
         _fluwxWXApiHandler = [[FluwxWXApiHandler alloc] init];
-        _fluwxPaymentHandler = [[FluwxPaymentHandler alloc] initWithRegistrar:registrar];
         _fluwxLaunchMiniProgramHandler = [[FluwxLaunchMiniProgramHandler alloc] initWithRegistrar:registrar];
         _fluwxSubscribeMsgHandler = [[FluwxSubscribeMsgHandler alloc] initWithRegistrar:registrar];
         _fluwxAutoDeductHandler = [[FluwxAutoDeductHandler alloc] initWithRegistrar:registrar];
@@ -78,11 +75,6 @@ FluwxAutoDeductHandler *_fluwxAutoDeductHandler;
 
     if ([@"sendAuth" isEqualToString:call.method]) {
         [_fluwxAuthHandler handleAuth:call result:result];
-        return;
-    }
-
-    if ([@"payWithFluwx" isEqualToString:call.method]) {
-        [_fluwxPaymentHandler handlePayment:call result:result];
         return;
     }
 

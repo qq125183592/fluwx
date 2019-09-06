@@ -39,13 +39,6 @@ StreamController<WeChatAuthResponse> _responseAuthController =
 Stream<WeChatAuthResponse> get responseFromAuth =>
     _responseAuthController.stream;
 
-StreamController<WeChatPaymentResponse> _responsePaymentController =
-    new StreamController.broadcast();
-
-///Response from payment
-Stream<WeChatPaymentResponse> get responseFromPayment =>
-    _responsePaymentController.stream;
-
 Stream<WeChatLaunchMiniProgramResponse> get responseFromLaunchMiniProgram =>
     _responseLaunchMiniProgramController.stream;
 
@@ -98,9 +91,6 @@ Future<dynamic> _handler(MethodCall methodCall) {
   } else if ("onLaunchMiniProgramResponse" == methodCall.method) {
     _responseLaunchMiniProgramController
         .add(WeChatLaunchMiniProgramResponse.fromMap(methodCall.arguments));
-  } else if ("onPayResponse" == methodCall.method) {
-    _responsePaymentController
-        .add(WeChatPaymentResponse.fromMap(methodCall.arguments));
   } else if ("onSubscribeMsgResp" == methodCall.method) {
     _responseFromSubscribeMsg
         .add(WeChatSubscribeMsgResp.fromMap(methodCall.arguments));
@@ -138,7 +128,6 @@ Future register(
 void dispose({
   shareResponse: true,
   authResponse: true,
-  paymentResponse: true,
   launchMiniProgramResponse: true,
   onAuthByQRCodeFinished: true,
   onAuthGotQRCode: true,
@@ -153,10 +142,6 @@ void dispose({
   }
   if (launchMiniProgramResponse) {
     _responseLaunchMiniProgramController.close();
-  }
-
-  if (paymentResponse) {
-    _responsePaymentController.close();
   }
 
   if (onAuthByQRCodeFinished) {
@@ -267,30 +252,6 @@ Future launchMiniProgram(
 ///
 Future isWeChatInstalled() async {
   return await _channel.invokeMethod("isWeChatInstalled");
-}
-
-/// params are from server
-Future pay(
-    {@required String appId,
-    @required String partnerId,
-    @required String prepayId,
-    @required String packageValue,
-    @required String nonceStr,
-    @required int timeStamp,
-    @required String sign,
-    String signType,
-    String extData}) async {
-  return await _channel.invokeMethod("payWithFluwx", {
-    "appId": appId,
-    "partnerId": partnerId,
-    "prepayId": prepayId,
-    "packageValue": packageValue,
-    "nonceStr": nonceStr,
-    "timeStamp": timeStamp,
-    "sign": sign,
-    "signType": signType,
-    "extData": extData,
-  });
 }
 
 /// subscribe message
